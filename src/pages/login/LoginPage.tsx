@@ -18,7 +18,6 @@ const LoginPage = () => {
 
     const handleLanguageChange = (language: string) => {
         setSelectedLanguage(language);
-        // Here, you can add your logic to update the language of your application
         console.log(`Selected language: ${language}`);
     };
 
@@ -35,8 +34,7 @@ const LoginPage = () => {
         try {
             const result = await Login(data);
             if (result.success) {
-                // Handle successful login
-                navigate('/dashboard');
+                navigate('/Home');
                 console.log(result.data);
             } else {
                 setLoginError(JSON.stringify(result.error));
@@ -59,8 +57,8 @@ const LoginPage = () => {
                     <input
                         type="email"
                         {...register("email")}
-                        placeholder="E-mail"
-                        className="border border-[#ECECEC] rounded-lg px-4 py-3  focus:ring-[#8D7FC7] focus:ring-1 focus:outline-none hover:border-[#8D7FC7] cursor-pointer"
+                        placeholder="Почта"
+                        className="border border-[#ECECEC] rounded-lg px-5 py-4  focus:ring-[#8D7FC7] focus:ring-2 focus:outline-none hover:border-[#8D7FC7] cursor-pointer w-full placeholder:text-lg"
                     />
                     {errors.email && <p>{errors.email.message}</p>}
 
@@ -69,7 +67,7 @@ const LoginPage = () => {
                             type={showPassword ? 'text' : 'password'}
                             {...register("password")}
                             placeholder="Пароль"
-                            className="border border-[#ECECEC] rounded-lg  px-4 py-3  focus:ring-[#8D7FC7] focus:ring-1 focus:outline-none hover:border-[#8D7FC7] cursor-pointer w-full"
+                            className="border border-[#ECECEC] rounded-lg px-5 py-4  focus:ring-[#8D7FC7] focus:ring-2 focus:outline-none hover:border-[#8D7FC7] cursor-pointer w-full placeholder:text-lg"
                         />
                         <button
                             type="button"
@@ -93,14 +91,14 @@ const LoginPage = () => {
                     </button>
                 </form>
                 <div className="w-full flex justify-between items-center">
-                    <h3 className="text-[#008AFF] text-base cursor-pointer">Я забыл пароль</h3>
-                    <h3 className="text-[#008AFF] text-base cursor-pointer">Войти как тренер</h3>
+                    <h3 className="text-[#008AFF] text-xl cursor-pointer">Я забыл пароль</h3>
+                    <h3 className="text-[#008AFF] text-xl cursor-pointer">Войти как тренер</h3>
                 </div>
-                <div className="flex-col justify-center items-center text-center p-25">
+                <div className="flex-col justify-center items-center text-center p-25 m-8">
                     <h3 className="text-[#323854] text-base cursor-pointer">Нет аккаунта?</h3>
-                    <h3 className="text-[#008AFF] text-base cursor-pointer">Зарегистрироваться</h3>
+                    <h3 className="text-[#008AFF] text-xl cursor-pointer">Зарегистрироваться</h3>
                 </div>
-                <div className="flex flex-row gap-2 items-center text-center">
+                <div className="flex flex-row gap-2 items-center text-center mt-24">
                     <div
                         className={`font-['Circe_Rounded'] leading-[21px] text-left cursor-pointer ${selectedLanguage === 'ru' ? 'text-[#7362BC] text-4xl' : 'text-[#79747F] text-xl'
                             }`}

@@ -9,3 +9,10 @@ export const FormDataSchema = z.object({
 	//     .nonempty('Message is required.')
 	//     .min(6, { message: 'Message must be at least 6 characters.' })
 });
+
+
+export interface LoginResponse {
+   success: boolean;
+    data?: { email: string; password: string }; 
+    error?: { [key: string]: { message: string } }; 
+}
