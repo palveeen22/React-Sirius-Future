@@ -1,0 +1,30 @@
+@import url("https://fonts.cdnfonts.com/css/circe-rounded");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --font-circe-rounded: 'Circe Rounded', sans-serif;
+}
+
+body {
+    font-family: var(--font-circe-rounded);
+}
+
+
+
+/*
+How to import local font file ? like this: @font-face {
+    font-family: "Blender-Thin";
+    src: url("./fonts/Blender-Thin.woff2") format("woff2"),
+        url("./fonts/Blender-Thin.woff") format("woff");
+}
+
+@font-face {
+    font-family: 'CircleRounded';
+    src: url('/fonts/CircleRounded-Regular.otf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+*/
