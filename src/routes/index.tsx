@@ -1,7 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import BaseLayout from "../layouts/BaseLayout";
 import LoginPage from "../pages/login/LoginPage";
-import DashboardPage from "../pages/dashboardPage";
 import CalendarPage from "../pages/CalendarPage";
 import HomePage from "../pages/HomePage";
 
@@ -21,6 +20,7 @@ export const router = createBrowserRouter([{
             element: <BaseLayout />,
             children: [
                 {
+
                     path: "Home",
                     element: <HomePage />,
                 },

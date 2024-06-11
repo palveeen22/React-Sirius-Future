@@ -14,7 +14,7 @@ const SideBarElement = (props: TPropsNav) => {
 
     const { Title, Icon, isACtive, Onclick = () => console.log("click") } = props;
 
-    const divClass = 'h-10 w-full flex flex-row items-center gap-2 cursor-pointer';
+    const divClass = 'h-10 w-full flex  items-center gap-2 cursor-pointer';
     const activeClass = 'bg-[#8D7FC7] rounded-r-[30px]';
     const iconClass = 'w-7 h-7 ml-11';
     const titleActiveClass = 'font-circe text-lg font-bold leading-5 text-left text-white';

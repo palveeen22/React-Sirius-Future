@@ -1,8 +1,11 @@
 import React from 'react'
+import Header from '../components/Header'
 
 const CalendarPage = () => {
     return (
-        <div>CalendarPage</div>
+        <section className='w-[85%]'>
+            <Header />
+        </section >
     )
 }
 

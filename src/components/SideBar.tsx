@@ -7,7 +7,7 @@ const SideBar = ({ active }: TPropsSide) => {
     const navigate = useNavigate()
 
     return (
-        <nav className="w-[20%] bg-[#EEEEFF] min-h-screen rounded-3xl py-8 my-4 ml-4">
+        <nav className="w-[15%] bg-[#EEEEFF] min-h-screen rounded-3xl py-8 my-8 ml-14">
             <div className="flex flex-col justify-between items-center gap-5">
                 <span className="flex justify-center items-center">
                     <img src="/images/sirin.png" className="w-40 h-15 object-cover" alt="Logo" />
