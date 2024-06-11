@@ -1,7 +1,7 @@
 import { TProps } from "./type";
 
 
-function PeymentIcon(props: TProps) {
+function PaymentIcon(props: TProps) {
     const { isActive, className } = props
     return (
         <div className={className}>
@@ -15,4 +15,4 @@ function PeymentIcon(props: TProps) {
     );
 }
 
-export default PeymentIcon;
+export default PaymentIcon;
