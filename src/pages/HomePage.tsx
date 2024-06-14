@@ -1,8 +1,47 @@
+import { ApiRequest } from "../libs/apiRequest";
 import Header from "../components/Header";
-import DogIcon from "../../public/images/dog.svg";
 import NextlessonCard from "../components/NextlessonCard";
+import { useEffect, useState } from "react";
 
 const HomePage = () => {
+    const [data, setData] = useState([])
+    /*
+     const LoadUser = async () => {
+    try {
+      const config = {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.myDates}`,
+        },
+      };
+
+      const response = await apiRequest.dashboard['v1.2.0'].get(
+        `/private/accountStatList/${buttonActive}`,
+        config,
+      );
+      setListAccountInterest(response.data.response || []);
+      setListAccountInterest2(response.data.response || []);
+    } catch (err) {
+      // console.log(err);
+    }
+  };
+    */
+
+    useEffect(() => {
+        const getUsers = async () => {
+            try {
+                const response = await ApiRequest.identity["v1.0"].get("/listUsers")
+                setData(response.data.users)
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        getUsers();
+    }, []);
+
+    console.log(data, "<<<<");
+
     return (
         <section className="w-[85%]">
             <Header />
