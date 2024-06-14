@@ -14,3 +14,20 @@ export type TLogin = {
   email: string;
   password: string;
 }
+
+
+export type UserDetail =  {
+  id: number;
+  firstName: string;
+  lastName: string;
+  imageUrl: string;
+  balance: number;
+}
+
+ export type User = {
+  id: number;
+  email: string;
+  password: string;
+  role: number;
+  UserDetail: UserDetail[];
+}

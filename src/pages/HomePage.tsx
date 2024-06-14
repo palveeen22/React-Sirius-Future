@@ -2,6 +2,9 @@ import { ApiRequest } from "../libs/apiRequest";
 import Header from "../components/Header";
 import NextlessonCard from "../components/NextlessonCard";
 import { useEffect, useState } from "react";
+import { useGetProfileQuery } from "../services/getprofile";
+import { User } from "../schemas";
+
 
 const HomePage = () => {
     const [data, setData] = useState([])
@@ -27,11 +30,17 @@ const HomePage = () => {
   };
     */
 
+    let { data: profile } = useGetProfileQuery();
+
+
+    console.log(profile, "<<<<<WAH");
+
+
     useEffect(() => {
         const getUsers = async () => {
             try {
-                const response = await ApiRequest.identity["v1.0"].get("/listUsers")
-                setData(response.data.users)
+                const { data } = await ApiRequest.identity["v1.0"].get("/listUsers")
+                setData(data.users)
             } catch (error) {
                 console.log(error);
             }
