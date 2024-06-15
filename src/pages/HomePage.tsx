@@ -3,11 +3,11 @@ import Header from "../components/Header";
 import NextlessonCard from "../components/NextlessonCard";
 import { useEffect, useState } from "react";
 import { useGetProfileQuery } from "../services/getprofile";
-import { User } from "../schemas";
+import { useGetProfile } from "../zustand/store";
 
 
 const HomePage = () => {
-    const [data, setData] = useState([])
+    // const [data, setData] = useState([])
     /*
      const LoadUser = async () => {
     try {
@@ -30,26 +30,33 @@ const HomePage = () => {
   };
     */
 
-    let { data: profile } = useGetProfileQuery();
+    // let { data: profile } = useGetProfileQuery();
 
 
-    console.log(profile, "<<<<<WAH");
+    // useEffect(() => {
+    //     const getUsers = async () => {
+    //         try {
+    //             const { data } = await ApiRequest.identity["v1.0"].get("/listUsers")
+    //             setData(data.users)
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
 
+    //     getUsers();
+    // }, []);
+
+
+
+    const getData = useGetProfile();
 
     useEffect(() => {
-        const getUsers = async () => {
-            try {
-                const { data } = await ApiRequest.identity["v1.0"].get("/listUsers")
-                setData(data.users)
-            } catch (error) {
-                console.log(error);
-            }
-        };
-
-        getUsers();
+        getData.execute();
     }, []);
 
-    console.log(data, "<<<<");
+
+    console.log(getData.data, "<<<<");
+
 
     return (
         <section className="w-[85%]">
