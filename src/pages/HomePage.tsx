@@ -1,32 +1,97 @@
-import Header from '../components/Header'
-import DogIcon from '../../public/images/dog.svg'
-import NextlessonCard from '../components/NextlessonCard'
+import { ApiRequest } from "../libs/apiRequest";
+import Header from "../components/Header";
+import NextlessonCard from "../components/NextlessonCard";
+import { useEffect, useState } from "react";
+import { useGetProfileQuery } from "../services/getprofile";
+import { useGetProfile } from "../zustand/store";
 
 
 const HomePage = () => {
-    return (
-        <section className='w-[85%]'>
-            <Header />
-            <div className='w-full flex justify-between items-center px-8 py-6 gap-4'>
-                {/* <section className="w-1/2 flex flex-row gap-5 p-5">
-                    <div className="bg-[#7362BC] w-1/2 h-62 rounded-3xl opacity-0 flex flex-col gap-3 relative overflow-hidden">
-                        <h2 className="text-white text-4xl font-normal font-['Circe Rounded'] leading-8 mt-14 ml-10 w-3/5">До 31 декабря любой курс со скидкой 20%</h2>
-                        <p className="text-white text-base font-light font-['Circe Rounded'] leading-5 ml-10 w-3/5">До конца года у вас есть уникальная возможность воспользоваться нашей новогодней скидкой 20% на любой курс!</p>
-                        <img src={DogIcon} alt="" className="absolute right-0 bottom-0" />
-                    </div>
-                    <div className="bg-[#E8CBFF] w-40 h-62 rounded-lg opacity-0"></div>
-                </section>
-                <div className='w-1/2' > y</div > */}
-                <div className='bg-[#7362BC] w-1/2 h-64 rounded-3xl'></div>
-                <NextlessonCard />
-                <div className='bg-[#E8CBFF] w-[20%] h-64 rounded-3xl'></div>
-            </div >
-            <div className='w-full flex justify-center items-center px-8 py-6 gap-4'>
-                <div className='border border-[#7362BC] w-[35%] h-96 rounded-3xl'></div>
-                <div className='border border-[#7362BC] w-[65%] h-96 rounded-3xl'></div>
-            </div >
-        </section >
-    )
-}
+    // const [data, setData] = useState([])
+    /*
+     const LoadUser = async () => {
+    try {
+      const config = {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${localStorage.myDates}`,
+        },
+      };
 
-export default HomePage
+      const response = await apiRequest.dashboard['v1.2.0'].get(
+        `/private/accountStatList/${buttonActive}`,
+        config,
+      );
+      setListAccountInterest(response.data.response || []);
+      setListAccountInterest2(response.data.response || []);
+    } catch (err) {
+      // console.log(err);
+    }
+  };
+    */
+
+    // let { data: profile } = useGetProfileQuery();
+
+
+    // useEffect(() => {
+    //     const getUsers = async () => {
+    //         try {
+    //             const { data } = await ApiRequest.identity["v1.0"].get("/listUsers")
+    //             setData(data.users)
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+
+    //     getUsers();
+    // }, []);
+
+
+
+    const getData = useGetProfile();
+
+    useEffect(() => {
+        getData.execute();
+    }, []);
+
+
+    console.log(getData.data, "<<<<");
+
+
+    return (
+        <section className="w-[85%]">
+            <Header />
+            <div className="w-full flex justify-between items-center px-8 py-6 gap-4">
+                {/* <section className="flex flex-row pt-5 pl-8 gap-5">
+                    <div className="w-1/2 bg-[#7362BC] h-[248px] gap-3 rounded-[30px] opacity-0 flex flex-col relative overflow-hidden">
+                        <h2 className="mt-[56px] ml-[40px] w-[60%] font-[Circe Rounded] text-[32px] font-normal leading-[32px] text-left text-white">
+                        </h2>
+                        <p className="w-[60%] font-[Circe Rounded] text-[16px] font-light leading-[20px] text-left text-white ml-[40px]">
+                        </p>
+                        <img className="absolute right-0 bottom-0" src="/images/dog.svg" alt="Image description" />
+                    </div>
+                    <div className="w-[162px] h-[248px] top-[222px] left-[1228px] gap-0 rounded-[20px] opacity-0 bg-[#E8CBFF]">
+                    </div>               
+                     </section> */}
+
+                <div className="relative bg-[#7362BC] w-1/2 h-64 rounded-3xl">
+                    <div className="flex justify-between">
+                        <div className="flex-col p-4 gap-10 justify-between">
+                            <h2 className="mt-[56px] ml-[40px] w-[60%] text-[32px] font-normal leading-[32px] text-left text-white">До 31 декабря любой курс со скидкой 20%</h2>
+                            <p className="w-[60%] font-[Circe Rounded] text-[16px] font-light leading-[20px] text-left text-white ml-[40px]">До конца года у вас есть уникальная возможность воспользоваться нашей новогодней скидкой 20% на любой курс!</p>
+                        </div>
+                        <img className="absolute right-0 bottom-0 rounded-3xl" src="/images/dog.svg" alt="Image description" />
+                    </div>
+                </div>
+                <NextlessonCard />
+                <div className="bg-[#E8CBFF] w-[20%] h-64 rounded-3xl"></div>
+            </div>
+            <div className="w-full flex justify-center items-center px-8 py-6 gap-4">
+                <div className="border border-[#7362BC] w-[35%] h-96 rounded-3xl"></div>
+                <div className="border border-[#7362BC] w-[65%] h-96 rounded-3xl"></div>
+            </div>
+        </section>
+    );
+};
+
+export default HomePage;

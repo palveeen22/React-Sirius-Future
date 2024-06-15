@@ -1,17 +1,24 @@
 "use client";
 import { useState } from "react";
 import { z } from "zod";
-import { FormDataSchema } from "../../schemas/validation";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { zodResolver } from '@hookform/resolvers/zod'
-import { Login } from "./loginAction";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
+import { ApiRequest } from "../../libs/apiRequest";
 
+type TLoginInput = {
+    email: string;
+    password: string;
+};
+
+// Define the validation schema using zod
+const FormDataSchema = z.object({
+    email: z.string().email({ message: "Invalid email address" }),
+    password: z.string().min(6, { message: "Password must be at least 6 characters long" }),
+});
 
 const LoginPage = () => {
     const navigate = useNavigate();
-
-    type Inputs = z.infer<typeof FormDataSchema>;
     const [showPassword, setShowPassword] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState('ru');
     const [loginError, setLoginError] = useState<string | null>(null);
@@ -21,44 +28,38 @@ const LoginPage = () => {
         console.log(`Selected language: ${language}`);
     };
 
-
     const {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<Inputs>({
+    } = useForm<TLoginInput>({
         resolver: zodResolver(FormDataSchema),
     });
 
-    const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    const handleLogin = async (input: TLoginInput) => {
         try {
-            const result = await Login(data);
-            if (result.success) {
-                navigate('/Home');
-                console.log(result.data);
-            } else {
-                setLoginError(JSON.stringify(result.error));
-            }
+            const { data } = await ApiRequest.auth["v1.0"].post("/login", input);
+            localStorage.setItem("access_token", data.access_token);
+            navigate("/Home");
         } catch (error) {
-            setLoginError('An error occurred during login.');
+            console.log(error);
         }
     };
 
     return (
         <section className="w-full min-h-screen flex justify-center items-center">
             <main className="flex flex-col justify-center items-center gap-5">
-                <img src="/images/logo.png" className="w-20 h-20" />
+                <img src="/images/logo.png" className="w-20 h-20" alt="Logo" />
                 <h1 className="text-[#323854] text-5xl">Вход в Sirius Future</h1>
-                {/* {loginError && <div className="text-red-500">{loginError}</div>} */}
                 <form
                     className="w-full flex flex-col gap-4"
-                    onSubmit={handleSubmit(onSubmit)}
+                    onSubmit={handleSubmit(handleLogin)}
                 >
                     <input
                         type="email"
                         {...register("email")}
                         placeholder="Почта"
-                        className="border border-[#ECECEC] rounded-lg px-5 py-4  focus:ring-[#8D7FC7] focus:ring-2 focus:outline-none hover:border-[#8D7FC7] cursor-pointer w-full placeholder:text-lg"
+                        className="border border-[#ECECEC] rounded-lg px-5 py-4 focus:ring-[#8D7FC7] focus:ring-2 focus:outline-none hover:border-[#8D7FC7] cursor-pointer w-full placeholder:text-lg"
                     />
                     {errors.email && <p>{errors.email.message}</p>}
 
@@ -67,7 +68,7 @@ const LoginPage = () => {
                             type={showPassword ? 'text' : 'password'}
                             {...register("password")}
                             placeholder="Пароль"
-                            className="border border-[#ECECEC] rounded-lg px-5 py-4  focus:ring-[#8D7FC7] focus:ring-2 focus:outline-none hover:border-[#8D7FC7] cursor-pointer w-full placeholder:text-lg"
+                            className="border border-[#ECECEC] rounded-lg px-5 py-4 focus:ring-[#8D7FC7] focus:ring-2 focus:outline-none hover:border-[#8D7FC7] cursor-pointer w-full placeholder:text-lg"
                         />
                         <button
                             type="button"
@@ -100,15 +101,13 @@ const LoginPage = () => {
                 </div>
                 <div className="flex flex-row gap-2 items-center text-center mt-24">
                     <div
-                        className={`font-['Circe_Rounded'] leading-[21px] text-left cursor-pointer ${selectedLanguage === 'ru' ? 'text-[#7362BC] text-4xl' : 'text-[#79747F] text-xl'
-                            }`}
+                        className={`font-['Circe_Rounded'] leading-[21px] text-left cursor-pointer ${selectedLanguage === 'ru' ? 'text-[#7362BC] text-4xl' : 'text-[#79747F] text-xl'}`}
                         onClick={() => handleLanguageChange('ru')}
                     >
                         Ru
                     </div>
                     <div
-                        className={`font-['Circe_Rounded'] leading-[21.6px] text-left cursor-pointer ${selectedLanguage === 'en' ? 'text-[#7362BC] text-4xl' : 'text-[#79747F] text-xl'
-                            }`}
+                        className={`font-['Circe_Rounded'] leading-[21.6px] text-left cursor-pointer ${selectedLanguage === 'en' ? 'text-[#7362BC] text-4xl' : 'text-[#79747F] text-xl'}`}
                         onClick={() => handleLanguageChange('en')}
                     >
                         En

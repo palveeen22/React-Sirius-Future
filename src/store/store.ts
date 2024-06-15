@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { JsonPlaceHolderApi } from "../services/jsonplaceholder";
+import { getprofile } from "../services/getprofile";
 
 export const store = configureStore({
 	//input reducer from services here
 	reducer: {
-		[JsonPlaceHolderApi.reducerPath]: JsonPlaceHolderApi.reducer,
+		[getprofile.reducerPath]: getprofile.reducer,
 	},
 	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware().concat(JsonPlaceHolderApi.middleware),
+		getDefaultMiddleware().concat(getprofile.middleware),
 });
 
 // State global (called RootState)
