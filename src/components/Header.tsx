@@ -18,6 +18,11 @@ const Header = () => {
         setIsOpen(false);
     };
 
+    const handleLogout = () => {
+        localStorage.clear();
+        navigate("/");
+    };
+
     return (
         <div className="shadow-md bg-white p-6 rounded-b-3xl">
             <div className="flex justify-between items-center">
@@ -76,7 +81,7 @@ const Header = () => {
                     <div className="w-full h-[1px] bg-[#EEEEFF] mt-[12px]"></div>
                     <button
                         className="flex justify-between items-center w-full h-[40px] bg-white border-none font-['Circe Rounded'] text-[16px] font-400 leading-[21.6px] text-[#008AFF] mt-[12px]"
-                        onClick={() => navigate('/')}
+                        onClick={handleLogout}
                     >
                         <p>Выход</p>
                         <img src="/icons/logout.svg" />

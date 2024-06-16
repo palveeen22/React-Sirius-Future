@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { ApiRequest } from "../../libs/apiRequest";
+import { useTranslation } from "react-i18next";
+import useLanguage from "../../hooks/useLanguage";
 
 type TLoginInput = {
     email: string;
@@ -21,7 +23,9 @@ const LoginPage = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [selectedLanguage, setSelectedLanguage] = useState('ru');
-    const [loginError, setLoginError] = useState<string | null>(null);
+    const { t } = useTranslation();
+    const { currentLanguage, handleChangeLanguage } = useLanguage();
+    // const [loginError, setLoginError] = useState<string | null>(null);
 
     const handleLanguageChange = (language: string) => {
         setSelectedLanguage(language);
@@ -50,7 +54,7 @@ const LoginPage = () => {
         <section className="w-full min-h-screen flex justify-center items-center">
             <main className="flex flex-col justify-center items-center gap-5">
                 <img src="/images/logo.png" className="w-20 h-20" alt="Logo" />
-                <h1 className="text-[#323854] text-5xl">Вход в Sirius Future</h1>
+                <h1 className="text-[#323854] text-5xl">{t('headerLogin')}</h1>
                 <form
                     className="w-full flex flex-col gap-4"
                     onSubmit={handleSubmit(handleLogin)}
@@ -102,13 +106,13 @@ const LoginPage = () => {
                 <div className="flex flex-row gap-2 items-center text-center mt-24">
                     <div
                         className={`font-['Circe_Rounded'] leading-[21px] text-left cursor-pointer ${selectedLanguage === 'ru' ? 'text-[#7362BC] text-4xl' : 'text-[#79747F] text-xl'}`}
-                        onClick={() => handleLanguageChange('ru')}
+                        onClick={() => handleChangeLanguage('ru')}
                     >
                         Ru
                     </div>
                     <div
                         className={`font-['Circe_Rounded'] leading-[21.6px] text-left cursor-pointer ${selectedLanguage === 'en' ? 'text-[#7362BC] text-4xl' : 'text-[#79747F] text-xl'}`}
-                        onClick={() => handleLanguageChange('en')}
+                        onClick={() => handleChangeLanguage('en')}
                     >
                         En
                     </div>
